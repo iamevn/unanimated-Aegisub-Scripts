@@ -481,8 +481,12 @@ function sorting(subs,sel)
     if res.mode=="left margin" then table.sort(subtable,function(a,b) return a.ml<b.ml or (a.ml==b.ml and a.i<b.i) end) end
     if res.mode=="right margin" then table.sort(subtable,function(a,b) return a.mr<b.mr or (a.mr==b.mr and a.i<b.i) end) end
     if res.mode=="vertical margin" then table.sort(subtable,function(a,b) return a.mv<b.mv or (a.mv==b.mv and a.i<b.i) end) end
-    if res.mode=="sort by time" and not res.mod then table.sort(subtable,function(a,b) return a.start_time<b.start_time or (a.start_time==b.start_time and a.end_time<b.end_time) end) end
-    if res.mode=="sort by time" and res.mod then table.sort(subtable,function(a,b) return a.end_time<b.end_time or (a.end_time==b.end_time and a.start_time<b.start_time) end) end
+    if res.mode=="sort by time" and not res.mod then table.sort(subtable,function(a,b)
+    	return a.start_time<b.start_time or (a.start_time==b.start_time and a.end_time<b.end_time)
+    	or (a.start_time==b.start_time and a.end_time==b.end_time and a.i<b.i) end) end
+    if res.mode=="sort by time" and res.mod then table.sort(subtable,function(a,b)
+    	return a.end_time<b.end_time or (a.end_time==b.end_time and a.start_time<b.start_time)
+    	or (a.end_time==b.end_time and a.start_time==b.start_time and a.i<b.i) end) end
     if res.mode=="reverse" then table.sort(subtable,function(a,b) return a.i>b.i end) end
     if res.mode=="width of text" then table.sort(subtable,function(a,b) return a.width<b.width or (a.width==b.width and a.i<b.i) end) end
     if res.mode=="dialogue first" then table.sort(subtable,function(a,b) return a.st<b.st or (a.st==b.st and a.i<b.i) end) end
